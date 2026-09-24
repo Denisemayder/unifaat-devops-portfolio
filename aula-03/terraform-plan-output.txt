@@ -5,6 +5,46 @@ plan. Resource actions are indicated with the following symbols:
 
 Terraform will perform the following actions:
 
+[1m  # aws_iam_group.developers[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_group" "developers" {
+      [32m+[0m[0m arn       = (known after apply)
+      [32m+[0m[0m id        = (known after apply)
+      [32m+[0m[0m name      = "6325028-technova-developers"
+      [32m+[0m[0m path      = "/"
+      [32m+[0m[0m unique_id = (known after apply)
+    }
+
+[1m  # aws_iam_group.platform_eng[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_group" "platform_eng" {
+      [32m+[0m[0m arn       = (known after apply)
+      [32m+[0m[0m id        = (known after apply)
+      [32m+[0m[0m name      = "6325028-technova-platform-eng"
+      [32m+[0m[0m path      = "/"
+      [32m+[0m[0m unique_id = (known after apply)
+    }
+
+[1m  # aws_iam_group_membership.developers[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_group_membership" "developers" {
+      [32m+[0m[0m group = "6325028-technova-developers"
+      [32m+[0m[0m id    = (known after apply)
+      [32m+[0m[0m name  = "6325028-developers-membership"
+      [32m+[0m[0m users = [
+          [32m+[0m[0m "6325028-juliana-dev",
+          [32m+[0m[0m "6325028-lucas-intern",
+          [32m+[0m[0m "6325028-rafael-platform",
+        ]
+    }
+
+[1m  # aws_iam_group_membership.platform_eng[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_group_membership" "platform_eng" {
+      [32m+[0m[0m group = "6325028-technova-platform-eng"
+      [32m+[0m[0m id    = (known after apply)
+      [32m+[0m[0m name  = "6325028-platform-membership"
+      [32m+[0m[0m users = [
+          [32m+[0m[0m "6325028-rafael-platform",
+        ]
+    }
+
 [1m  # aws_iam_instance_profile.ec2_profile[0m will be created
 [0m  [32m+[0m[0m resource "aws_iam_instance_profile" "ec2_profile" {
       [32m+[0m[0m arn         = (known after apply)
@@ -14,7 +54,22 @@ Terraform will perform the following actions:
       [32m+[0m[0m name_prefix = (known after apply)
       [32m+[0m[0m path        = "/"
       [32m+[0m[0m role        = "6325028-technova-ec2-role"
-      [32m+[0m[0m tags_all    = (known after apply)
+      [32m+[0m[0m tags        = {
+          [32m+[0m[0m "Aluno"      = "Denise Macedo"
+          [32m+[0m[0m "Aula"       = "03"
+          [32m+[0m[0m "Disciplina" = "DevOps - UniFAAT 2026-2"
+          [32m+[0m[0m "ManagedBy"  = "Terraform"
+          [32m+[0m[0m "Project"    = "TechNova"
+          [32m+[0m[0m "RA"         = "6325028"
+        }
+      [32m+[0m[0m tags_all    = {
+          [32m+[0m[0m "Aluno"      = "Denise Macedo"
+          [32m+[0m[0m "Aula"       = "03"
+          [32m+[0m[0m "Disciplina" = "DevOps - UniFAAT 2026-2"
+          [32m+[0m[0m "ManagedBy"  = "Terraform"
+          [32m+[0m[0m "Project"    = "TechNova"
+          [32m+[0m[0m "RA"         = "6325028"
+        }
       [32m+[0m[0m unique_id   = (known after apply)
     }
 
@@ -147,7 +202,22 @@ Terraform will perform the following actions:
       [32m+[0m[0m name                  = "6325028-technova-ec2-role"
       [32m+[0m[0m name_prefix           = (known after apply)
       [32m+[0m[0m path                  = "/"
-      [32m+[0m[0m tags_all              = (known after apply)
+      [32m+[0m[0m tags                  = {
+          [32m+[0m[0m "Aluno"      = "Denise Macedo"
+          [32m+[0m[0m "Aula"       = "03"
+          [32m+[0m[0m "Disciplina" = "DevOps - UniFAAT 2026-2"
+          [32m+[0m[0m "ManagedBy"  = "Terraform"
+          [32m+[0m[0m "Project"    = "TechNova"
+          [32m+[0m[0m "RA"         = "6325028"
+        }
+      [32m+[0m[0m tags_all              = {
+          [32m+[0m[0m "Aluno"      = "Denise Macedo"
+          [32m+[0m[0m "Aula"       = "03"
+          [32m+[0m[0m "Disciplina" = "DevOps - UniFAAT 2026-2"
+          [32m+[0m[0m "ManagedBy"  = "Terraform"
+          [32m+[0m[0m "Project"    = "TechNova"
+          [32m+[0m[0m "RA"         = "6325028"
+        }
       [32m+[0m[0m unique_id             = (known after apply)
 
       [32m+[0m[0m inline_policy (known after apply)
@@ -180,14 +250,97 @@ Terraform will perform the following actions:
       [32m+[0m[0m role        = (known after apply)
     }
 
-[1mPlan:[0m [0m6 to add, 0 to change, 0 to destroy.
+[1m  # aws_iam_user.juliana[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_user" "juliana" {
+      [32m+[0m[0m arn           = (known after apply)
+      [32m+[0m[0m force_destroy = false
+      [32m+[0m[0m id            = (known after apply)
+      [32m+[0m[0m name          = "6325028-juliana-dev"
+      [32m+[0m[0m path          = "/"
+      [32m+[0m[0m tags          = {
+          [32m+[0m[0m "Aluno"      = "Denise Macedo"
+          [32m+[0m[0m "Aula"       = "03"
+          [32m+[0m[0m "Disciplina" = "DevOps - UniFAAT 2026-2"
+          [32m+[0m[0m "ManagedBy"  = "Terraform"
+          [32m+[0m[0m "Project"    = "TechNova"
+          [32m+[0m[0m "RA"         = "6325028"
+        }
+      [32m+[0m[0m tags_all      = {
+          [32m+[0m[0m "Aluno"      = "Denise Macedo"
+          [32m+[0m[0m "Aula"       = "03"
+          [32m+[0m[0m "Disciplina" = "DevOps - UniFAAT 2026-2"
+          [32m+[0m[0m "ManagedBy"  = "Terraform"
+          [32m+[0m[0m "Project"    = "TechNova"
+          [32m+[0m[0m "RA"         = "6325028"
+        }
+      [32m+[0m[0m unique_id     = (known after apply)
+    }
+
+[1m  # aws_iam_user.lucas[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_user" "lucas" {
+      [32m+[0m[0m arn           = (known after apply)
+      [32m+[0m[0m force_destroy = false
+      [32m+[0m[0m id            = (known after apply)
+      [32m+[0m[0m name          = "6325028-lucas-intern"
+      [32m+[0m[0m path          = "/"
+      [32m+[0m[0m tags          = {
+          [32m+[0m[0m "Aluno"      = "Denise Macedo"
+          [32m+[0m[0m "Aula"       = "03"
+          [32m+[0m[0m "Disciplina" = "DevOps - UniFAAT 2026-2"
+          [32m+[0m[0m "ManagedBy"  = "Terraform"
+          [32m+[0m[0m "Project"    = "TechNova"
+          [32m+[0m[0m "RA"         = "6325028"
+        }
+      [32m+[0m[0m tags_all      = {
+          [32m+[0m[0m "Aluno"      = "Denise Macedo"
+          [32m+[0m[0m "Aula"       = "03"
+          [32m+[0m[0m "Disciplina" = "DevOps - UniFAAT 2026-2"
+          [32m+[0m[0m "ManagedBy"  = "Terraform"
+          [32m+[0m[0m "Project"    = "TechNova"
+          [32m+[0m[0m "RA"         = "6325028"
+        }
+      [32m+[0m[0m unique_id     = (known after apply)
+    }
+
+[1m  # aws_iam_user.rafael[0m will be created
+[0m  [32m+[0m[0m resource "aws_iam_user" "rafael" {
+      [32m+[0m[0m arn           = (known after apply)
+      [32m+[0m[0m force_destroy = false
+      [32m+[0m[0m id            = (known after apply)
+      [32m+[0m[0m name          = "6325028-rafael-platform"
+      [32m+[0m[0m path          = "/"
+      [32m+[0m[0m tags          = {
+          [32m+[0m[0m "Aluno"      = "Denise Macedo"
+          [32m+[0m[0m "Aula"       = "03"
+          [32m+[0m[0m "Disciplina" = "DevOps - UniFAAT 2026-2"
+          [32m+[0m[0m "ManagedBy"  = "Terraform"
+          [32m+[0m[0m "Project"    = "TechNova"
+          [32m+[0m[0m "RA"         = "6325028"
+        }
+      [32m+[0m[0m tags_all      = {
+          [32m+[0m[0m "Aluno"      = "Denise Macedo"
+          [32m+[0m[0m "Aula"       = "03"
+          [32m+[0m[0m "Disciplina" = "DevOps - UniFAAT 2026-2"
+          [32m+[0m[0m "ManagedBy"  = "Terraform"
+          [32m+[0m[0m "Project"    = "TechNova"
+          [32m+[0m[0m "RA"         = "6325028"
+        }
+      [32m+[0m[0m unique_id     = (known after apply)
+    }
+
+[1mPlan:[0m [0m13 to add, 0 to change, 0 to destroy.
 
 Changes to Outputs:
   [32m+[0m[0m ec2_instance_profile_arn    = (known after apply)
   [32m+[0m[0m ec2_role_arn                = (known after apply)
+  [32m+[0m[0m group_developers_arn        = (known after apply)
+  [32m+[0m[0m group_platform_eng_arn      = (known after apply)
   [32m+[0m[0m policy_deny_destructive_arn = (known after apply)
   [32m+[0m[0m policy_ec2_s3_full_arn      = (known after apply)
   [32m+[0m[0m policy_s3_read_arn          = (known after apply)
+  [32m+[0m[0m user_juliana_arn            = (known after apply)
+  [32m+[0m[0m user_lucas_arn              = (known after apply)
+  [32m+[0m[0m user_rafael_arn             = (known after apply)
 [90m
 ─────────────────────────────────────────────────────────────────────────────[0m
 
