@@ -2,7 +2,7 @@
 resource "aws_iam_policy" "s3_read" {
   name        = "${local.prefix}-technova-s3-read"
   description = "Leitura S3 somente em buckets technova-*"
-  # tags removidas: AWS Academy nao permite iam:TagPolicy
+  tags        = local.tags
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -21,7 +21,7 @@ resource "aws_iam_policy" "s3_read" {
 resource "aws_iam_policy" "ec2_s3_full" {
   name        = "${local.prefix}-technova-ec2-s3-full"
   description = "EC2 e S3 para platform engineering"
-  # tags removidas: AWS Academy nao permite iam:TagPolicy
+  tags        = local.tags
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -56,7 +56,7 @@ resource "aws_iam_policy" "ec2_s3_full" {
 resource "aws_iam_policy" "deny_destructive" {
   name        = "${local.prefix}-technova-deny-destructive"
   description = "Bloqueia acoes destrutivas para desenvolvedores"
-  # tags removidas: AWS Academy nao permite iam:TagPolicy
+  tags        = local.tags
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -70,4 +70,20 @@ resource "aws_iam_policy" "deny_destructive" {
       Resource = "*"
     }]
   })
+}
+
+# Anexar policies aos grupos
+resource "aws_iam_group_policy_attachment" "developers_s3_read" {
+  group      = aws_iam_group.developers.name
+  policy_arn = aws_iam_policy.s3_read.arn
+}
+
+resource "aws_iam_group_policy_attachment" "developers_deny" {
+  group      = aws_iam_group.developers.name
+  policy_arn = aws_iam_policy.deny_destructive.arn
+}
+
+resource "aws_iam_group_policy_attachment" "platform_ec2_s3" {
+  group      = aws_iam_group.platform_eng.name
+  policy_arn = aws_iam_policy.ec2_s3_full.arn
 }
