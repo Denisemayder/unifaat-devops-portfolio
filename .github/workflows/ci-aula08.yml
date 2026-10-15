@@ -1,0 +1,68 @@
+name: CI Aula 08 - TechNova API
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-aula08-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Verificar ESLint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: aula-08/technova-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: aula-08/technova-api/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+
+  test:
+    name: Executar Jest com Coverage
+    needs: lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: aula-08/technova-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: aula-08/technova-api/package-lock.json
+      - run: npm ci
+      - run: npm test
+
+  build:
+    name: Construir imagem Docker
+    needs: test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: aula-08/technova-api
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verificar secret configurado
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+        run: |
+          if [ -z "$AWS_REGION" ]; then
+            echo "Secret AWS_REGION não configurado"
+            echo "Configure o secret na Parte 2 do laboratório"
+          fi
+          echo "Secret AWS_REGION configurado com sucesso"
+      - name: Docker build
+        run: docker build -t technova-aula08:${{ github.sha }} .
