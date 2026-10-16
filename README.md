@@ -1,5 +1,7 @@
 # Portfólio DevOps — UniFAAT 2026-2
 
+[![CI Aula 08 - TechNova API](https://github.com/Denisemayder/unifaat-devops-portfolio/actions/workflows/ci-aula08.yml/badge.svg)](https://github.com/Denisemayder/unifaat-devops-portfolio/actions/workflows/ci-aula08.yml)
+
 **Aluno:** Denise Macedo  
 **RA:** 6325028  
 **Disciplina:** DevOps — Centro Universitário UniFAAT  
