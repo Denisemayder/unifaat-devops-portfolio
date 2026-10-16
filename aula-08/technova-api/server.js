@@ -82,3 +82,4 @@ if (require.main === module) {
 }
 
 module.exports = app;
+const erroIntencional = 123;
