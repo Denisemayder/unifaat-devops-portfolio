@@ -55,14 +55,20 @@ jobs:
         working-directory: aula-08/technova-api
     steps:
       - uses: actions/checkout@v4
-      - name: Verificar secret configurado
+      - name: Verificar secrets AWS e banco de dados
         env:
           AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
-          if [ -z "$AWS_REGION" ]; then
-            echo "Secret AWS_REGION não configurado"
-            echo "Configure o secret na Parte 2 do laboratório"
-          fi
-          echo "Secret AWS_REGION configurado com sucesso"
+          for nome in AWS_REGION AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY DB_PASSWORD; do
+            if [ -n "${!nome}" ]; then
+              echo "Secret $nome configurado"
+            else
+              echo "Secret $nome não configurado"
+              exit 1
+            fi
+          done
       - name: Docker build
         run: docker build -t technova-aula08:${{ github.sha }} .
