@@ -1,0 +1,19 @@
+{
+  "name": "technova-reserva-salas",
+  "version": "1.0.0",
+  "description": "API de Reserva de Salas - TechNova Aula 07",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "lint": "eslint server.js __tests__",
+    "test": "jest --coverage"
+  },
+  "dependencies": {
+    "express": "^4.22.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "jest": "^29.7.0",
+    "supertest": "^7.3.1"
+  }
+}
